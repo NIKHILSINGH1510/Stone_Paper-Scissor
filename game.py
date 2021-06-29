@@ -33,54 +33,70 @@ def msg_updation(a):
     final_message['text']=a
 
 def comp_update():
-    final = int(score_computer['text'])
+    final = int(computer_score['text'])
     final += 1
-    score_computer['text']= str(final)
+    computer_score['text']= str(final)
 
 def player_update():
-    final = int(score_player['text'])
+    final = int(player_score['text'])
     final +=1
-    score_player[''text']= str(final)
+    player_score['text']= str(final)
 
 def winner(p,c):
     if p==c:
-        msgupdation("It's a tie")
+        msg_updation("It's a tie")
     elif p=="rock":
         if c == "paper":
-            msgupdation("Computer wins!!")
+            msg_updation("Computer wins!!")
             comp_update()
         else:
-            msgupdation("You win!!")
+            msg_updation("You win!!")
             player_update()
     elif p=="paper":
         if c == "scissor":
-            msgupdation("Computer wins!!")
+            msg_updation("Computer wins!!")
             comp_update()
         else:
-            msgupdation("You win!!")
+            msg_updation("You win!!")
             player_update()
     elif p=="scissor":
         if c=="rock":
-            msgupdation("Computer wins!!")
+            msg_updation("Computer wins!!")
             comp_update()
         else:
-            msgupdation("You win!!")
+            msg_updation("You win!!")
             player_update()
     else:
         pass
 to_select = ["rock", "paper","scissor"]
 
 def choice_update(a):
-       
+    choice_computer = to_select[randint(0,2)]
+    if choice_computer == "rock":
+            label_computer.configure(image = image_rock)
+    elif choice_computer == "paper":
+                label_computer.configure(image = image_paper)
+    else:
+                label_computer.configure(image = image_scissor)
+
+    if a=="rock":
+            label_player.configure(image = image_rock)
+    elif a=="paper":
+            label_player.configure(image = image_paper)
+    else:
+            label_player.configure(image = image_scissor)
+        
+    winner(a,choice_computer)
+
              
         
 
-final_message = Label(window,font=("arial",40,"bold"),fg="white")
+final_message = Label(window,font=("arial",20,"bold"),bg="red",fg="white")
 final_message.grid(row=3,column =2)
 
-button_rock= Button(window, width=16, height = 3, text="ROCK",font =("arial",20,"bold"),bg="yellow",fg="red").grid(row=2,column=1)
-button_paper= Button(window, width=16, height = 3, text="PAPER",font =("arial",20,"bold"),bg="yellow",fg="red").grid(row=2,column=2)
-button_scissor= Button(window, width=16, height = 3, text="SCISSOR",font =("arial",20,"bold"),bg="yellow",fg="red").grid(row=2,column=3)
+button_rock= Button(window, width=16, height = 3, text="ROCK",font =("arial",20,"bold"),bg="yellow",fg="red",command=lambda:choice_update("rock")).grid(row=2,column=1)
+button_paper= Button(window, width=16, height = 3, text="PAPER",font =("arial",20,"bold"),bg="yellow",fg="red",command=lambda:choice_update("paper")).grid(row=2,column=2)
+button_scissor= Button(window, width=16, height = 3, text="SCISSOR",font =("arial",20,"bold"),bg="yellow",fg="red",command=lambda:choice_update("scissor")).grid(row=2,column=3)
 
 window.mainloop()
 
